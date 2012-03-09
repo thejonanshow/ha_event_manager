@@ -128,10 +128,12 @@ class EventManager
       end
     end
 
-    state_data = state_data.sort_by{|state, counter| state.to_s}
+    ranked_states = state_data.sort_by{|state, counter| counter}
+    ranked_states.each_with_index {|state, index| state.push index}
+    ranked_states = ranked_states.sort_by{|state, counter| state.to_s}
 
-    state_data.each do |state, counter|
-      puts "#{state}: #{counter}"
+    ranked_states.each do |state, counter, rank|
+      puts "#{state}: #{counter} (#{rank})" if state
     end
   end
 end
